@@ -10,7 +10,7 @@ ENV LANG=en_US.UTF-8
 ENV TERM=xterm-256color
 
 # intall basic dev pkgs
-RUN apt update && apt install -y git wget fasd tmux fzf
+RUN apt update && apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
 
 # build nvim
 RUN git clone https://github.com/neovim/neovim
