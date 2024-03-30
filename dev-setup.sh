@@ -43,7 +43,7 @@ if [ -d "$LAZYGIT_DIR" ]; then
 fi
 sudo mkdir -p $LAZYGIT_DIR
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-sudo curl -Lo $LAZYGIT_DIR/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+sudo curl -Lo $LAZYGIT_DIR/lazygit.tar.gz "https://gitee.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 tar xf $LAZYGIT_DIR/lazygit.tar.gz -C $LAZYGIT_DIR
 sudo install $LAZYGIT_DIR/lazygit /usr/local/bin
 
