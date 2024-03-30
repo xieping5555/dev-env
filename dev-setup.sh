@@ -9,7 +9,7 @@ fi
 set -ex
 
 # install basic dev packages
-sudo apt update && apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
+sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
 
 # build nvim
 sudo apt install -y ninja-build gettext cmake unzip curl
