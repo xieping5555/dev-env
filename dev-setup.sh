@@ -54,7 +54,7 @@ if [ -d $GO_DIR ]; then
     sudo rm -rf $GO_DIR
 fi
 wget -P $HOME https://dl.google.com/go/$GOVERSION.linux-amd64.tar.gz
-sudo mkdir $GO_DIR && tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $GO_DIR
+sudo mkdir $GO_DIR && sudo tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $GO_DIR
 
 # install oh-my-zsh
 ZSH_DIR="$HOME/.oh-my-zsh"
