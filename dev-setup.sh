@@ -12,23 +12,29 @@ set -ex
 sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
 
 # build nvim
-if [ -d "$HOME/neovim" ]; then
-    sudo rm -rf "$HOME/neovim"
+NVIM_DIR = "$HOME/neovim"
+NVIM_CONF_DIR = "$HOME/.config/nvim"
+if [ -d $NVIM_DIR ]; then
+    sudo rm -rf $NVIM_DIR
 fi
-if [ -d "$HOME/.config/nvim" ]; then
-    sudo rm -rf "$HOME/.config/nvim"
+if [ -d $NVIM_CONF_DIR ]; then
+    sudo rm -rf $NVIM_CONF_DIR
 fi
 sudo apt install -y ninja-build gettext cmake unzip curl
-git clone https://github.com/neovim/neovim $HOME/neovim
-cd $HOME/neovim && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
-git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $HOME/.config/nvim
+git clone https://github.com/neovim/neovim $NVIM_DIR
+cd $NVIM_DIR && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
+git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
 cd -
 
 # install mcfly
 curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly
 
-# install tmux
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+# install tpm
+TPM_DIR = "$HOME/.tmux/plugins/tpm"
+if [ -d $TPM_DIR ]; then
+    sudo rm -rf $TPM_DIR
+fi
+git clone https://github.com/tmux-plugins/tpm $TPM_DIR
 sudo cp .tmux.conf $HOME
 
 # install lazygit
@@ -44,14 +50,19 @@ sudo install $LAZYGIT_DIR/lazygit /usr/local/bin
 
 # install golang
 GOVERSION="go1.19.5"
-if [ -d "$HOME/$GOVERSION" ]; then
-    sudo rm -rf "$HOME/$GOVERSION"
+GO_DIR="$HOME/$GOVERSION"
+if [ -d $GO_DIR ]; then
+    sudo rm -rf $GO_DIR
 fi
 wget -P $HOME https://dl.google.com/go/$GOVERSION.linux-amd64.tar.gz
-sudo mkdir $HOME/$GOVERSION && tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $HOME/$GOVERSION
+sudo mkdir $GO_DIR && tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $GO_DIR
 
 # install oh-my-zsh
+ZSH_DIR="$HOME/.oh-my-zsh"
+if [ -d $ZSH_DIR ]; then
+    sudo rm -rf $ZSH_DIR
+fi
 sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
-git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
 sudo cp .zshrc $HOME
 zsh
