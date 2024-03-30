@@ -14,15 +14,14 @@ sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3
 # build nvim
 NVIM_DIR="$HOME/neovim"
 NVIM_CONFDIR="$HOME/.config/nvim"
-if [ -d $NVIM_DIR ]; then
-    sudo rm -rf $NVIM_DIR
+sudo apt install -y ninja-build gettext cmake unzip curl
+if [ ! -d $NVIM_DIR ]; then
+    git clone https://github.com/neovim/neovim $NVIM_DIR
 fi
+cd $NVIM_DIR && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 if [ -d $NVIM_CONF_DIR ]; then
     sudo rm -rf $NVIM_CONF_DIR
 fi
-sudo apt install -y ninja-build gettext cmake unzip curl
-git clone https://github.com/neovim/neovim $NVIM_DIR
-cd $NVIM_DIR && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
 cd -
 
