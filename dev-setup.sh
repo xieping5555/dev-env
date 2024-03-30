@@ -15,6 +15,9 @@ sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3
 if [ -d "$HOME/neovim" ]; then
     sudo rm -rf "$HOME/neovim"
 fi
+if [ -d "$HOME/.config/nvim" ]; then
+    sudo rm -rf "$HOME/.config/nvim"
+fi
 sudo apt install -y ninja-build gettext cmake unzip curl
 git clone https://github.com/neovim/neovim $HOME/neovim
 cd $HOME/neovim && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
