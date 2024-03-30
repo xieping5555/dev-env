@@ -1,0 +1,45 @@
+#! /bin/bash
+
+which sudo >/dev/null 2>&1
+if [ $? != 0 ]; then
+    apt update
+    apt install -y sudo
+fi
+
+set -ex
+
+# install basic dev packages
+sudo apt update && apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
+
+# build nvim
+sudo apt install -y ninja-build gettext cmake unzip curl
+git clone https://github.com/neovim/neovim $HOME/neovim
+cd $HOME/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && make install
+git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $HOME/.config/nvim
+cd -
+
+# install mcfly
+curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly
+
+# install tmux
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+sudo cp .tmux.conf $HOME
+
+# install lazygit
+LAZYGIT_DIR="$HOME/lazygit"
+sudo mkdir -p $LAZYGIT_DIR
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo $LAZYGIT_DIR/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf $LAZYGIT_DIR/lazygit.tar.gz -C $LAZYGIT_DIR
+sudo install $LAZYGIT_DIR/lazygit /usr/local/bin
+
+# install golang
+GOVERSION="go1.19.5"
+wget -P $HOME https://dl.google.com/go/$GOVERSION.linux-amd64.tar.gz
+sudo mkdir $HOME/$GOVERSION && tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $HOME/$GOVERSION
+
+# install oh-my-zsh
+sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
+git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+sudo cp .zshrc $HOME
+zsh

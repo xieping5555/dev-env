@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="random"
+ZSH_THEME="simple"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -103,11 +103,10 @@ export GOPROXY="https://goproxy.cn,https://proxy.golang.org,direct"
 export GOPRIVATE="*.byted.org,*.everphoto.cn"
 export GOSUMDB="sum.golang.google.cn"
 
-export GOPATH=~/goworkspace
+export GOPATH=~/goproject
 export GOROOT=~/go1.19.5/go
 export GOBIN=$GOROOT/bin
 export PATH=$PATH:$GOBIN
-
 
 alias cs='cd "$(s)"'
 alias vs='$(d -Rl "$1" | fzf -1 -0 --no-sort +m); nvim'
@@ -115,3 +114,6 @@ alias at='alacritty-themes'
 
 eval "$(mcfly init zsh)"
 eval "$(fasd --init auto)"
+
+export LANG=en_US.UTF-8
+export TERM=xterm-256color
