@@ -12,8 +12,8 @@ set -ex
 sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
 
 # build nvim
-NVIM_DIR = "$HOME/neovim"
-NVIM_CONF_DIR = "$HOME/.config/nvim"
+NVIM_DIR="$HOME/neovim"
+NVIM_CONFDIR="$HOME/.config/nvim"
 if [ -d $NVIM_DIR ]; then
     sudo rm -rf $NVIM_DIR
 fi
@@ -30,7 +30,7 @@ cd -
 curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly
 
 # install tpm
-TPM_DIR = "$HOME/.tmux/plugins/tpm"
+TPM_DIR="$HOME/.tmux/plugins/tpm"
 if [ -d $TPM_DIR ]; then
     sudo rm -rf $TPM_DIR
 fi
