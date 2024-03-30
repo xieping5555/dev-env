@@ -12,6 +12,9 @@ set -ex
 sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
 
 # build nvim
+if [ -d "$HOME/neovim" ]; then
+    sudo rm -rf "$HOME/neovim"
+fi
 sudo apt install -y ninja-build gettext cmake unzip curl
 git clone https://github.com/neovim/neovim $HOME/neovim
 cd $HOME/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && make install
@@ -27,6 +30,9 @@ sudo cp .tmux.conf $HOME
 
 # install lazygit
 LAZYGIT_DIR="$HOME/lazygit"
+if [ -d "$LAZYGIT_DIR" ]; then
+    sudo rm -rf "$LAZYGIT_DIR"
+fi
 sudo mkdir -p $LAZYGIT_DIR
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 curl -Lo $LAZYGIT_DIR/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
@@ -35,6 +41,9 @@ sudo install $LAZYGIT_DIR/lazygit /usr/local/bin
 
 # install golang
 GOVERSION="go1.19.5"
+if [ -d "$HOME/$GOVERSION" ]; then
+    sudo rm -rf "$HOME/$GOVERSION"
+fi
 wget -P $HOME https://dl.google.com/go/$GOVERSION.linux-amd64.tar.gz
 sudo mkdir $HOME/$GOVERSION && tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $HOME/$GOVERSION
 
