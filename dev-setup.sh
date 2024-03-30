@@ -17,7 +17,7 @@ if [ -d "$HOME/neovim" ]; then
 fi
 sudo apt install -y ninja-build gettext cmake unzip curl
 git clone https://github.com/neovim/neovim $HOME/neovim
-cd $HOME/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && make install
+cd $HOME/neovim && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $HOME/.config/nvim
 cd -
 
