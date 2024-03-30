@@ -19,10 +19,9 @@ if [ ! -d $NVIM_DIR ]; then
     git clone https://github.com/neovim/neovim $NVIM_DIR
 fi
 cd $NVIM_DIR && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
-if [ -d $NVIM_CONF_DIR ]; then
-    sudo rm -rf $NVIM_CONF_DIR
+if [ ! -d $NVIM_CONF_DIR ]; then
+    git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
 fi
-git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
 cd -
 
 # install mcfly
