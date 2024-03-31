@@ -27,7 +27,7 @@ sudo cp .zshrc $HOME
 # install homebrew
 sudo apt-get install build-essential
 export HOMEBREW_NO_INSTALL_FROM_API=1
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+zsh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.zshrc
 zsh -c "source $HOME/.zshrc"
 
