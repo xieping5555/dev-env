@@ -17,7 +17,6 @@ sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3
 
 # install oh-my-zsh
 ZSH_DIR="$HOME/.oh-my-zsh"
-ZSH_CONF_PATH="$HOME/.zshrc"
 if [ -d $ZSH_DIR ]; then
     sudo rm -rf $ZSH_DIR
 fi
@@ -29,14 +28,14 @@ sudo cp .zshrc $HOME
 sudo apt-get install build-essential
 export HOMEBREW_NO_INSTALL_FROM_API=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$ZSH_CONF_PATH
-source $ZSH_CONF_PATH
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.zshrc
+source $HOME/.zshrc
 
 # install starship
 brew install starship
 starship preset tokyo-night -o ~/.config/starship.toml
-echo 'eval "$(starship init zsh)"' >>$ZSH_CONF_PATH
-source $ZSH_CONF_PATH
+echo 'eval "$(starship init zsh)"' >>$HOME/.zshrc
+source $HOME/.zshrc
 
 # build nvim
 NVIM_DIR="$HOME/neovim"
@@ -54,8 +53,8 @@ cd -
 
 # install mcfly
 brew install mcfly
-echo 'eval "$(mcfly init zsh)"' >>$ZSH_CONF_PATH
-source $ZSH_CONF_PATH
+echo 'eval "$(mcfly init zsh)"' >>$HOME/.zshrc
+source $HOME/.zshrc
 
 # install tpm
 TPM_DIR="$HOME/.tmux/plugins/tpm"
