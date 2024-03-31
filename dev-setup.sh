@@ -21,7 +21,6 @@ fi
 sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
 git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
 sudo cp .zshrc $HOME
-zsh
 
 # install homebrew
 sudo apt-get install build-essential
@@ -31,7 +30,7 @@ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.zshrc
 source $HOME/.zshrc
 
 # install starship
-brew install starship
+zsh -c "brew install starship"
 starship preset tokyo-night -o ~/.config/starship.toml
 echo 'eval "$(starship init zsh)"' >>$HOME/.zshrc
 source $HOME/.zshrc
@@ -51,7 +50,7 @@ git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $NVIM_CO
 cd -
 
 # install mcfly
-brew install mcfly
+zsh -c "brew install mcfly"
 echo 'eval "$(mcfly init zsh)"' >>$HOME/.zshrc
 source $HOME/.zshrc
 
@@ -65,7 +64,7 @@ sudo cp .tmux.conf $HOME
 $TPM_DIR/bin/install_plugins
 
 # install lazygit
-brew install jesseduffield/lazygit/lazygit && brew install lazygit
+zsh -c "brew install jesseduffield/lazygit/lazygit" && zsh -c "brew install lazygit"
 
 # install golang
 GOVERSION="go1.19.5"
