@@ -31,11 +31,13 @@ if [$? != 0 ]; then
     sudo apt-get install build-essential
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$ZSH_CONF_PATH
 source $ZSH_CONF_PATH
 
 # install starship
 brew install starship
 starship preset tokyo-night -o ~/.config/starship.toml
+echo 'eval "$(starship init zsh)"' >>$ZSH_CONF_PATH
 source $ZSH_CONF_PATH
 
 # build nvim
@@ -54,6 +56,8 @@ cd -
 
 # install mcfly
 brew install mcfly
+echo 'eval "$(mcfly init zsh)"' >>$ZSH_CONF_PATH
+source $ZSH_CONF_PATH
 
 # install tpm
 TPM_DIR="$HOME/.tmux/plugins/tpm"
