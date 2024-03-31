@@ -23,7 +23,7 @@ if [ -d $ZSH_DIR ]; then
 fi
 sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
 git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
-sudo cp .zshrc $HOME && zsh
+sudo cp .zshrc $HOME
 
 # install homebrew
 which brew >/dev/null 2>&1
