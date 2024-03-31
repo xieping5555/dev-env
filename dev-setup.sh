@@ -15,16 +15,6 @@ sudo /etc/init.d/unscd restart
 # install basic dev packages
 sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
 
-# install oh-my-zsh
-ZSH_DIR="$HOME/.oh-my-zsh"
-if [ -d $ZSH_DIR ]; then
-    sudo rm -rf $ZSH_DIR
-fi
-sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
-git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
-sudo cp .zshrc $HOME
-exec zsh
-
 # install homebrew
 sudo apt-get install build-essential
 export HOMEBREW_NO_INSTALL_FROM_API=1
