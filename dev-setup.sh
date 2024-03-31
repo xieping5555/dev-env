@@ -27,6 +27,7 @@ sudo cp .zshrc $HOME
 
 # install homebrew
 sudo apt-get install build-essential
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$ZSH_CONF_PATH
 source $ZSH_CONF_PATH
