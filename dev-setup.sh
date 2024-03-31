@@ -29,13 +29,13 @@ sudo apt-get install build-essential
 export HOMEBREW_NO_INSTALL_FROM_API=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.zshrc
-. $HOME/.zshrc
+source $HOME/.zshrc
 
 # install starship
 brew install starship
 starship preset tokyo-night -o ~/.config/starship.toml
 echo 'eval "$(starship init zsh)"' >>$HOME/.zshrc
-. $HOME/.zshrc
+source $HOME/.zshrc
 
 # build nvim
 NVIM_DIR="$HOME/neovim"
@@ -54,7 +54,7 @@ cd -
 # install mcfly
 brew install mcfly
 echo 'eval "$(mcfly init zsh)"' >>$HOME/.zshrc
-. $HOME/.zshrc
+source $HOME/.zshrc
 
 # install tpm
 TPM_DIR="$HOME/.tmux/plugins/tpm"
