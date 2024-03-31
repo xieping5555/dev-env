@@ -76,3 +76,5 @@ if [ -d $GO_DIR ]; then
 fi
 wget -P $HOME https://dl.google.com/go/$GOVERSION.linux-amd64.tar.gz
 sudo mkdir $GO_DIR && sudo tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $GO_DIR
+
+zsh
