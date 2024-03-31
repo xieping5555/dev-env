@@ -6,6 +6,8 @@ if [ $? != 0 ]; then
     apt install -y sudo
 fi
 
+set -ex
+
 # replace hosts for github domains
 sudo sh -c 'sed -i "/# GitHub520 Host Start/Q" /etc/hosts && curl https://raw.hellogithub.com/hosts >> /etc/hosts'
 sudo /etc/init.d/unscd restart
