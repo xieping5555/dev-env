@@ -26,11 +26,8 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
 sudo cp .zshrc $HOME
 
 # install homebrew
-which brew >/dev/null 2>&1
-if [ $? != 0 ]; then
-    sudo apt-get install build-essential
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
+sudo apt-get install build-essential
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$ZSH_CONF_PATH
 source $ZSH_CONF_PATH
 
