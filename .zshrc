@@ -114,6 +114,8 @@ alias at='alacritty-themes'
 
 eval "$(mcfly init zsh)"
 eval "$(fasd --init auto)"
+eval "$(starship init zsh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export LANG=en_US.UTF-8
 export TERM=xterm-256color

@@ -8,8 +8,35 @@ fi
 
 set -ex
 
+# replace hosts for github domains
+sudo sh -c 'sed -i "/# GitHub520 Host Start/Q" /etc/hosts && curl https://raw.hellogithub.com/hosts >> /etc/hosts'
+sudo /etc/init.d/unscd restart
+
 # install basic dev packages
 sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
+
+# install oh-my-zsh
+ZSH_DIR="$HOME/.oh-my-zsh"
+ZSH_CONF_PATH="$HOME/.zshrc"
+if [ -d $ZSH_DIR ]; then
+    sudo rm -rf $ZSH_DIR
+fi
+sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
+git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
+sudo cp .zshrc $HOME && zsh
+
+# install homebrew
+which brew >/dev/null 2>&1
+if [$? != 0 ]; then
+    sudo apt-get install build-essential
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+source $ZSH_CONF_PATH
+
+# install starship
+brew install starship
+starship preset tokyo-night -o ~/.config/starship.toml
+source $ZSH_CONF_PATH
 
 # build nvim
 NVIM_DIR="$HOME/neovim"
@@ -26,7 +53,7 @@ git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $NVIM_CO
 cd -
 
 # install mcfly
-curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly
+brew install mcfly
 
 # install tpm
 TPM_DIR="$HOME/.tmux/plugins/tpm"
@@ -35,17 +62,10 @@ if [ -d $TPM_DIR ]; then
 fi
 git clone https://github.com/tmux-plugins/tpm $TPM_DIR
 sudo cp .tmux.conf $HOME
+source $TPM_DIR/bin/install_plugins
 
 # install lazygit
-LAZYGIT_DIR="$HOME/lazygit"
-if [ -d "$LAZYGIT_DIR" ]; then
-    sudo rm -rf "$LAZYGIT_DIR"
-fi
-sudo mkdir -p $LAZYGIT_DIR
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-sudo curl -Lo $LAZYGIT_DIR/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-sudo tar xf $LAZYGIT_DIR/lazygit.tar.gz -C $LAZYGIT_DIR
-sudo install $LAZYGIT_DIR/lazygit /usr/local/bin
+brew install jesseduffield/lazygit/lazygit && brew install lazygit
 
 # install golang
 GOVERSION="go1.19.5"
@@ -55,13 +75,3 @@ if [ -d $GO_DIR ]; then
 fi
 wget -P $HOME https://dl.google.com/go/$GOVERSION.linux-amd64.tar.gz
 sudo mkdir $GO_DIR && sudo tar -zxvf $HOME/$GOVERSION.linux-amd64.tar.gz -C $GO_DIR
-
-# install oh-my-zsh
-ZSH_DIR="$HOME/.oh-my-zsh"
-if [ -d $ZSH_DIR ]; then
-    sudo rm -rf $ZSH_DIR
-fi
-sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
-git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
-sudo cp .zshrc $HOME
-zsh
