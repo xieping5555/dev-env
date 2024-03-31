@@ -27,7 +27,7 @@ sudo cp .zshrc $HOME
 
 # install homebrew
 which brew >/dev/null 2>&1
-if [$? != 0 ]; then
+if [ $? != 0 ]; then
     sudo apt-get install build-essential
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
