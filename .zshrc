@@ -113,6 +113,9 @@ alias vs='$(d -Rl "$1" | fzf -1 -0 --no-sort +m); nvim'
 alias at='alacritty-themes'
 
 eval "$(fasd --init auto)"
+eval "$(mcfly init zsh)"
+eval "$(starship init zsh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export LANG=en_US.UTF-8
 export TERM=xterm-256color

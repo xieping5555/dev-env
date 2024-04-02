@@ -13,20 +13,26 @@ sudo sh -c 'sed -i "/# GitHub520 Host Start/Q" /etc/hosts && curl https://raw.he
 sudo /etc/init.d/unscd restart
 
 # install basic dev packages
-sudo apt update && sudo apt install -y git wget fasd tmux fzf nodejs npm python3 python3-pip
+sudo apt update && sudo apt install -y git wget fasd fzf nodejs npm python3 python3-pip
+
+# install oh-my-zsh
+ZSH_DIR="$HOME/.oh-my-zsh"
+if [ -d $ZSH_DIR ]; then
+    sudo rm -rf $ZSH_DIR
+fi
+sudo apt install -y zsh && chsh -s /usr/bin/zsh $USER
+git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH_DIR
+sudo cp .zshrc $HOME
 
 # install homebrew
 sudo apt-get install build-essential
 export HOMEBREW_NO_INSTALL_FROM_API=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.zshrc
-source $HOME/.zshrc
 
 # install starship
-brew install starship
+sudo curl -sS https://starship.rs/install.sh | sudo sh
 starship preset tokyo-night -o ~/.config/starship.toml
-echo 'eval "$(starship init zsh)"' >>$HOME/.zshrc
-source $HOME/.zshrc
 
 # build nvim
 NVIM_DIR="$HOME/neovim"
@@ -42,12 +48,18 @@ fi
 git clone -b feat/lazy https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
 cd -
 
-# install mcfly
-brew install mcfly
-echo 'eval "$(mcfly init zsh)"' >>$HOME/.zshrc
-source $HOME/.zshrc
-
-# install tpm
+# build tmux and install tpm
+sudo apt install -y libevent-dev ncurses-dev build-essential bison pkg-config
+TMUX_DIR=$HOME/tmux
+if [ -d $TMUX_DIR ]; then
+    sudo rm -rf $TMUX_DIR
+fi
+git clone https://github.com/tmux/tmux.git
+cd tmux
+sh autogen.sh
+./configure
+make && sudo make install
+cd -
 TPM_DIR="$HOME/.tmux/plugins/tpm"
 if [ -d $TPM_DIR ]; then
     sudo rm -rf $TPM_DIR
@@ -56,8 +68,14 @@ git clone https://github.com/tmux-plugins/tpm $TPM_DIR
 sudo cp .tmux.conf $HOME
 $TPM_DIR/bin/install_plugins
 
+# install mcfly
+curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sudo sh -s -- --git cantino/mcfly
+
 # install lazygit
-brew install jesseduffield/lazygit/lazygit && brew install lazygit
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
 
 # install golang
 GOVERSION="go1.19.5"
