@@ -13,7 +13,7 @@ sudo sh -c 'sed -i "/# GitHub520 Host Start/Q" /etc/hosts && curl https://raw.he
 sudo /etc/init.d/unscd restart
 
 # install basic dev packages
-sudo apt update && sudo apt install -y git wget fasd fzf nodejs npm python3 python3-pip
+sudo apt update && sudo apt install -y git wget fasd fzf nodejs npm python3 python3-pip ripgrep
 
 # install oh-my-zsh
 ZSH_DIR="$HOME/.oh-my-zsh"
