@@ -54,8 +54,8 @@ TMUX_DIR=$HOME/tmux
 if [ -d $TMUX_DIR ]; then
     sudo rm -rf $TMUX_DIR
 fi
-git clone https://github.com/tmux/tmux.git
-cd tmux
+git clone https://github.com/tmux/tmux.git $TMUX_DIR
+cd $TMUX_DIR
 sh autogen.sh
 ./configure
 make && sudo make install
