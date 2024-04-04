@@ -45,7 +45,7 @@ cd $NVIM_DIR && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 if [ -d $NVIM_CONF_DIR ]; then
     sudo rm -rf $NVIM_CONF_DIR
 fi
-git clone  https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
+git clone https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
 cd -
 
 # build tmux and install tpm
@@ -69,7 +69,7 @@ sudo cp .tmux.conf $HOME
 $TPM_DIR/bin/install_plugins
 
 # install mcfly
-curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sudo sh -s -- --git cantino/mcfly
+curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sudo sh -s -- --git --force cantino/mcfly --force
 
 # install lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
