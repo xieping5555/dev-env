@@ -45,7 +45,7 @@ cd $NVIM_DIR && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 if [ -d $NVIM_CONF_DIR ]; then
     sudo rm -rf $NVIM_CONF_DIR
 fi
-git clone https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
+git clone -b feat/nvchad https://github.com/xieping5555/neovim-config.git $NVIM_CONF_DIR
 cd -
 
 # build tmux and install tpm
